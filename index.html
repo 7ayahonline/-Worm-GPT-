@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#030407">
+  <meta name="description" content="WORM GPT — local cyber science laboratory for AI simulation, mathematics, physics and 3D exploration.">
+  <title>WORM GPT — Ultra Cyber Science</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div class="noise" aria-hidden="true"></div>
+
+  <div id="boot" class="boot" role="status" aria-live="polite">
+    <div class="boot-card">
+      <div class="boot-logo">WORM<span>_</span>GPT</div>
+      <div id="bootText" class="boot-text">INITIALIZING WORM CORE...</div>
+      <div class="boot-track"><i id="bootBar"></i></div>
+      <button id="skipBoot" class="btn ghost small">SKIP BOOT</button>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <button class="brand" data-nav="home" aria-label="WORM GPT home">
+      <span class="brand-mark">W</span><span class="brand-text">WORM<span>_</span>GPT</span>
+    </button>
+    <nav class="desktop-nav" aria-label="Primary">
+      <button data-nav="home">HOME</button>
+      <button data-nav="chat">AI</button>
+      <button data-nav="science">SCIENCE</button>
+      <button data-nav="physics">PHYSICS</button>
+      <button data-nav="math">MATH</button>
+      <button data-nav="core3d">3D CORE</button>
+      <button data-nav="terminal">TERMINAL</button>
+      <button data-nav="status">STATUS</button>
+    </nav>
+    <div class="top-actions">
+      <span class="live-pill"><i></i> CORE ONLINE</span>
+      <button id="newSessionTop" class="icon-btn" title="New session">＋</button>
+      <button id="openCmd" class="icon-btn" title="Command palette">⌘K</button>
+      <button id="openSettings" class="icon-btn" title="Settings">⚙</button>
+      <button id="openMenu" class="icon-btn mobile-only" title="Menu">☰</button>
+    </div>
+  </header>
+
+  <aside id="mobileMenu" class="drawer mobile-menu" aria-hidden="true">
+    <div class="drawer-head"><b>COMMAND CENTER</b><button class="icon-btn" data-close="mobileMenu">×</button></div>
+    <div class="drawer-body nav-stack">
+      <button data-nav="home">⌂ HOME</button><button data-nav="chat">◉ AI CHAT</button><button data-nav="science">◇ SCIENCE LAB</button><button data-nav="physics">◈ PHYSICS</button><button data-nav="math">∑ MATH</button><button data-nav="core3d">◌ 3D CORE</button><button data-nav="terminal">› TERMINAL</button><button data-nav="status">▣ STATUS</button>
+    </div>
+  </aside>
+
+  <main id="app">
+    <section id="home" class="page active">
+      <div class="hero hud-grid">
+        <div class="hero-copy reveal">
+          <div class="eyebrow"><span></span> LOCAL SCIENTIFIC INTELLIGENCE SYSTEM</div>
+          <h1 class="hero-title glitch" data-text="WORM GPT">WORM <em>GPT</em></h1>
+          <p class="hero-tag">THE AI BEYOND THE SURFACE.</p>
+          <p class="hero-desc">A futuristic local laboratory for mathematics, physics, science, simulations and computational exploration — no API key, no backend, no data leaving your browser.</p>
+          <div class="hero-actions"><button class="btn primary" data-nav="chat">START AI SESSION <span>↗</span></button><button class="btn secondary" data-nav="science">OPEN SCIENCE LAB</button><button class="btn ghost" data-nav="core3d">3D CORE</button></div>
+          <div class="trust-row"><span><i></i> LOCAL ENGINE</span><span><i></i> OFFLINE READY</span><span><i></i> SAFE SIMULATION</span></div>
+        </div>
+        <div class="hero-core reveal">
+          <div class="core-orbit orbit-a"></div><div class="core-orbit orbit-b"></div><div class="core-orbit orbit-c"></div>
+          <div class="core-sphere"><span>W</span></div>
+          <div class="core-readout"><b>CORE SIGNAL</b><span>0xWORM</span><small>STATUS // STABLE</small></div>
+          <div class="data-tag tag-a">PHYS 98.7%</div><div class="data-tag tag-b">MATH READY</div><div class="data-tag tag-c">3D ONLINE</div>
+        </div>
+      </div>
+
+      <div class="section-head"><div><span class="eyebrow">COMMAND DECK</span><h2>LOCAL SCIENCE SYSTEMS</h2></div><span class="section-code">WG//01</span></div>
+      <div class="feature-grid">
+        <article class="feature-card red" data-nav="chat"><span class="card-index">01</span><div class="feature-icon">◉</div><h3>AI CORE</h3><p>Local conversational engine with structured scientific responses, quick actions and session history.</p><button>OPEN MODULE →</button></article>
+        <article class="feature-card blue" data-nav="physics"><span class="card-index">02</span><div class="feature-icon">∿</div><h3>PHYSICS ENGINE</h3><p>Interactive projectile, gravity, pendulum, spring, orbit and wave simulations with live telemetry.</p><button>LAUNCH LAB →</button></article>
+        <article class="feature-card violet" data-nav="math"><span class="card-index">03</span><div class="feature-icon">∑</div><h3>MATH ENGINE</h3><p>Calculator, quadratic solver, vectors, statistics and a responsive function grapher.</p><button>OPEN LAB →</button></article>
+        <article class="feature-card cyan" data-nav="core3d"><span class="card-index">04</span><div class="feature-icon">◌</div><h3>3D CORE</h3><p>Canvas-based 3D-style visualization with particles, orbit rings, drag rotation and zoom.</p><button>ENTER CORE →</button></article>
+      </div>
+
+      <div class="ticker"><span>SYSTEM TELEMETRY</span><b id="tickerText">LOCAL CORE STABLE // PHYSICS READY // MATH READY // VISUALIZER READY</b></div>
+    </section>
+
+    <section id="chat" class="page">
+      <div class="section-head"><div><span class="eyebrow">WORM INTELLIGENCE</span><h2>AI COMMAND INTERFACE</h2></div><div class="head-actions"><button class="btn small secondary" id="newChat">NEW SESSION</button><button class="btn small ghost" id="fullscreenChat">FULLSCREEN</button></div></div>
+      <div class="chat-layout">
+        <aside class="chat-sidebar panel">
+          <div class="side-search"><input id="chatSearch" placeholder="Search sessions..."><span>⌕</span></div>
+          <div class="side-label">SESSIONS <span id="sessionCount">0</span></div>
+          <div id="sessionList" class="session-list"></div>
+          <div class="side-footer"><button class="btn small ghost" id="exportChat">EXPORT JSON</button><button class="btn small ghost" id="clearAllChats">CLEAR ALL</button></div>
+        </aside>
+        <div class="chat-main panel">
+          <div class="chat-head"><div><b id="chatTitle">WORM SESSION</b><span><i></i> LOCAL RESPONSE ENGINE</span></div><div class="chat-head-tools"><button id="focusMode" class="icon-btn">◎</button><button id="clearChat" class="icon-btn">⌫</button></div></div>
+          <div id="messages" class="messages" aria-live="polite"></div>
+          <div id="quickPrompts" class="quick-prompts">
+            <button data-prompt="Explain gravity">Explain gravity</button><button data-prompt="Solve x^2 - 5x + 6">Solve equation</button><button data-prompt="physics projectile">Launch physics</button><button data-prompt="Open 3D core">Open 3D</button><button data-prompt="What is relativity?">Relativity</button>
+          </div>
+          <div class="composer"><div class="composer-tools"><button data-command="/math">∑</button><button data-command="/physics">∿</button><button data-command="/science">◇</button><button data-command="/3d">◌</button><button data-command="/system">▣</button></div><textarea id="chatInput" rows="1" placeholder="Ask WORM GPT... try /help, /physics, /math"></textarea><button id="sendChat" class="send-btn" aria-label="Send">➤</button></div>
+          <div class="composer-foot"><span>LOCAL ONLY • NO EXTERNAL API</span><span id="charCount">0 / 1000</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="science" class="page">
+      <div class="section-head"><div><span class="eyebrow">SCIENTIFIC KNOWLEDGE GRID</span><h2>SCIENCE LAB</h2></div><span class="section-code">WG//SCI</span></div>
+      <div class="science-grid">
+        <article class="science-card red"><span>PHYSICS</span><h3>Mechanics</h3><p>Motion, forces, energy, momentum and gravity.</p><button data-nav="physics">OPEN →</button></article>
+        <article class="science-card blue"><span>ASTRONOMY</span><h3>Cosmic Systems</h3><p>Stars, orbits, black holes, relativity and scale.</p><button class="sciencePrompt" data-prompt="Explain black holes">ASK CORE →</button></article>
+        <article class="science-card cyan"><span>WAVES</span><h3>Oscillation</h3><p>Frequency, amplitude, phase, sound and wave motion.</p><button class="sciencePrompt" data-prompt="Explain waves">ASK CORE →</button></article>
+        <article class="science-card violet"><span>THERMODYNAMICS</span><h3>Energy Systems</h3><p>Temperature, entropy, work and heat transfer concepts.</p><button class="sciencePrompt" data-prompt="Explain entropy">ASK CORE →</button></article>
+        <article class="science-card green"><span>ENGINEERING</span><h3>Applied Models</h3><p>Use formulas and simulations to explore simplified systems.</p><button class="sciencePrompt" data-prompt="Give an engineering example">ASK CORE →</button></article>
+        <article class="science-card red"><span>QUANTUM</span><h3>Quantum Concepts</h3><p>Superposition, probability and measurement as conceptual models.</p><button class="sciencePrompt" data-prompt="Explain quantum mechanics">ASK CORE →</button></article>
+      </div>
+      <div class="formula-strip"><div><span>FORMULA OF THE MOMENT</span><strong>F = m × a</strong></div><p>Force is modeled as mass multiplied by acceleration.</p><button id="formulaRandom" class="btn small secondary">NEW FORMULA</button></div>
+    </section>
+
+    <section id="physics" class="page">
+      <div class="section-head"><div><span class="eyebrow">DYNAMIC MODELING CORE</span><h2>PHYSICS ENGINE</h2></div><div class="sim-status"><i></i><span id="physState">READY</span></div></div>
+      <div class="lab-layout">
+        <div class="sim-card panel"><div class="panel-head"><b>PROJECTILE MOTION</b><span>SIM//01</span></div><canvas id="physicsCanvas" width="900" height="460"></canvas><div class="sim-controls"><label>Velocity <input id="physVelocity" type="range" min="1" max="100" value="40"><output id="velOut">40</output> m/s</label><label>Angle <input id="physAngle" type="range" min="0" max="90" value="45"><output id="angleOut">45</output>°</label><label>Gravity <input id="physGravity" type="range" min="1" max="20" step="0.1" value="9.8"><output id="gravOut">9.8</output> m/s²</label><label>Mass <input id="physMass" type="range" min="1" max="100" value="10"><output id="massOut">10</output> kg</label></div><div class="sim-actions"><button id="physPlay" class="btn primary">PLAY</button><button id="physPause" class="btn secondary">PAUSE</button><button id="physReset" class="btn ghost">RESET</button><label class="speed">Speed <input id="physSpeed" type="range" min="0.25" max="2" step="0.25" value="1"><output id="speedOut">1×</output></label></div></div>
+        <aside class="telemetry panel"><div class="panel-head"><b>LIVE TELEMETRY</b><span>DATA</span></div><div class="metric"><span>RANGE</span><b id="rangeOut">0</b><small>m</small></div><div class="metric"><span>MAX HEIGHT</span><b id="heightOut">0</b><small>m</small></div><div class="metric"><span>FLIGHT TIME</span><b id="timeOut">0</b><small>s</small></div><div class="metric"><span>ENERGY</span><b id="energyOut">0</b><small>J</small></div><div class="metric"><span>VELOCITY X</span><b id="vxOut">0</b><small>m/s</small></div><div class="metric"><span>VELOCITY Y</span><b id="vyOut">0</b><small>m/s</small></div><div class="vector-box"><span>VECTOR MONITOR</span><div><i></i><i></i><i></i><i></i><i></i></div></div></aside>
+      </div>
+      <div class="sim-tabs"><button class="active" data-sim="projectile">PROJECTILE</button><button data-sim="gravity">FREE FALL</button><button data-sim="pendulum">PENDULUM</button><button data-sim="orbit">ORBIT</button><button data-sim="wave">WAVE</button></div>
+      <div class="mini-info-grid"><article><b>MODEL</b><span>Idealized 2D simulation</span></article><article><b>ENGINE</b><span>Canvas physics renderer</span></article><article><b>SAFETY</b><span>Educational simulation only</span></article></div>
+    </section>
+
+    <section id="math" class="page">
+      <div class="section-head"><div><span class="eyebrow">COMPUTATIONAL MATHEMATICS</span><h2>MATH ENGINE</h2></div><span class="section-code">WG//MATH</span></div>
+      <div class="math-grid">
+        <article class="panel tool-card"><div class="panel-head"><b>SCIENTIFIC CALCULATOR</b><span>CALC</span></div><input id="calcInput" class="tool-input" placeholder="Example: 25 * 4 + sqrt(81)"><div class="calc-buttons"><button data-calc="7">7</button><button data-calc="8">8</button><button data-calc="9">9</button><button data-calc="/">÷</button><button data-calc="4">4</button><button data-calc="5">5</button><button data-calc="6">6</button><button data-calc="*">×</button><button data-calc="1">1</button><button data-calc="2">2</button><button data-calc="3">3</button><button data-calc="-">−</button><button data-calc="0">0</button><button data-calc=".">.</button><button id="calcEquals">=</button><button data-calc="+">+</button><button data-calc="sqrt(">√</button><button data-calc="sin(">sin</button><button data-calc="cos(">cos</button><button data-calc="tan(">tan</button></div><div id="calcResult" class="result-box">READY</div></article>
+        <article class="panel tool-card"><div class="panel-head"><b>QUADRATIC SOLVER</b><span>AX²+BX+C</span></div><div class="three-inputs"><input id="qa" type="number" value="1" placeholder="a"><input id="qb" type="number" value="-5" placeholder="b"><input id="qc" type="number" value="6" placeholder="c"></div><button id="solveQuadratic" class="btn primary full">SOLVE EQUATION</button><div id="quadResult" class="result-box">x₁ = — • x₂ = —</div></article>
+        <article class="panel tool-card graph-card"><div class="panel-head"><b>FUNCTION GRAPHER</b><span>f(x)</span></div><div class="graph-bar"><input id="graphExpr" value="sin(x)" placeholder="sin(x), x^2, sqrt(x)"><button id="plotGraph" class="btn small secondary">PLOT</button><button id="resetGraph" class="btn small ghost">RESET</button></div><canvas id="graphCanvas" width="900" height="360"></canvas></article>
+        <article class="panel tool-card"><div class="panel-head"><b>VECTOR LAB</b><span>3D</span></div><div class="vector-inputs"><input id="vax" value="1" type="number"><input id="vay" value="2" type="number"><input id="vaz" value="3" type="number"><span>×</span><input id="vbx" value="4" type="number"><input id="vby" value="5" type="number"><input id="vbz" value="6" type="number"></div><button id="vectorCalc" class="btn secondary full">CALCULATE DOT / CROSS</button><div id="vectorResult" class="result-box">DOT: — • CROSS: —</div></article>
+      </div>
+      <div class="formula-library"><div class="panel-head"><b>FORMULA LIBRARY</b><span>REFERENCE</span></div><div id="formulaGrid" class="formula-grid"></div></div>
+    </section>
+
+    <section id="core3d" class="page">
+      <div class="section-head"><div><span class="eyebrow">VISUAL COMPUTING CORE</span><h2>3D CORE</h2></div><div class="sim-status"><i></i><span id="webglState">CANVAS READY</span></div></div>
+      <div class="core3d-layout"><div class="panel viewer"><canvas id="coreCanvas" width="900" height="560"></canvas><div class="viewer-overlay"><span>DRAG TO ROTATE</span><span>WHEEL TO ZOOM</span><span id="objectLabel">PARTICLE FIELD</span></div></div><aside class="panel viewer-controls"><div class="panel-head"><b>CORE CONTROLS</b><span>3D</span></div><label>OBJECT<select id="objectType"><option value="particles">Particle Field</option><option value="sphere">Sphere</option><option value="cube">Cube</option><option value="orbit">Orbit</option></select></label><label>ROTATION<input id="rotation3d" type="range" min="0" max="2" step="0.01" value="0.7"></label><label>ZOOM<input id="zoom3d" type="range" min="0.5" max="2" step="0.01" value="1"></label><label class="switch-row">AUTO ROTATE <input id="autoRotate" type="checkbox" checked><i></i></label><button id="reset3d" class="btn secondary full">RESET CORE</button><div class="core-stats"><span>RENDER <b>2D CANVAS</b></span><span>PARTICLES <b id="particleCount">120</b></span><span>INPUT <b>POINTER</b></span></div></aside></div>
+    </section>
+
+    <section id="terminal" class="page">
+      <div class="section-head"><div><span class="eyebrow">SAFE SYSTEM EMULATOR</span><h2>TERMINAL</h2></div><span class="section-code">LOCAL ONLY</span></div>
+      <div class="terminal-shell panel"><div class="terminal-top"><div class="terminal-lights"><i></i><i></i><i></i></div><b>WORM://LOCAL-CORE</b><span>SAFE SIMULATION</span></div><div id="terminalOutput" class="terminal-output"></div><div class="terminal-input"><span>&gt;</span><input id="terminalInput" autocomplete="off" placeholder="type help"><button id="terminalRun" class="btn small primary">RUN</button></div></div>
+      <div class="terminal-shortcuts"><button data-terminal="help">help</button><button data-terminal="status">status</button><button data-terminal="diagnostics">diagnostics</button><button data-terminal="physics">physics</button><button data-terminal="math">math</button><button data-terminal="clear">clear</button></div>
+    </section>
+
+    <section id="status" class="page">
+      <div class="section-head"><div><span class="eyebrow">SYSTEM TELEMETRY</span><h2>STATUS CENTER</h2></div><span class="system-time" id="systemTime">--:--:--</span></div>
+      <div class="status-grid" id="statusGrid"></div>
+      <div class="system-panel panel"><div class="panel-head"><b>LIVE METRICS</b><span id="uptime">UPTIME 00:00</span></div><div class="bars"><div><span>RENDER LOAD</span><i><b id="renderBar"></b></i></div><div><span>LOCAL MEMORY</span><i><b id="memoryBar"></b></i></div><div><span>SIMULATION LOAD</span><i><b id="simBar"></b></i></div></div></div>
+    </section>
+  </main>
+
+  <div id="settings" class="drawer" aria-hidden="true"><div class="drawer-head"><b>SYSTEM SETTINGS</b><button class="icon-btn" data-close="settings">×</button></div><div class="drawer-body settings-list"><label>Neon intensity <input id="setNeon" type="range" min="0.3" max="1.8" step="0.1"></label><label>Animation intensity <input id="setAnim" type="range" min="0" max="1.5" step="0.1"></label><label>Particles <input id="setParticles" type="range" min="20" max="180" step="10"></label><label class="switch-row">Scanlines <input id="setScan" type="checkbox"><i></i></label><label class="switch-row">Glitch effects <input id="setGlitch" type="checkbox"><i></i></label><label class="switch-row">Reduced motion <input id="setReduced" type="checkbox"><i></i></label><label class="switch-row">Performance mode <input id="setPerf" type="checkbox"><i></i></label><button id="resetSettings" class="btn danger full">RESET SETTINGS</button></div></div>
+
+  <div id="commandPalette" class="modal" aria-hidden="true"><div class="palette"><div class="palette-search"><span>⌘K</span><input id="cmdInput" placeholder="Search commands..."></div><div id="cmdList" class="cmd-list"></div><small>ENTER to run • ESC to close</small></div></div>
+  <div id="toastHost" class="toast-host"></div>
+
+  <footer><span>WORM GPT // ULTRA CYBER SCIENCE</span><span>LOCAL SIMULATION • v2.0.0</span></footer>
+  <script src="./app.js" defer></script>
+</body>
+</html>
